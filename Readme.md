@@ -1,14 +1,15 @@
 # Docker - Kubernetes WordPress
 
-This project was created in order to explain how to setup a wordpress installation with docker, then, move it to kubernetes
+This project was created in order to explain how to set up a Wordpress installation with docker, then, move it to Kubernetes.
 
 ## What do we need?
 
  - [docker](https://www.docker.com/products/docker-desktop)
+ - [minikube](https://kubernetes.io/docs/setup/learning-environment/minikube/#installation)
 
 ## Usage
 
-Run the following:
+To bring it up:
 
 ```bash
 docker-compose up -d
@@ -19,20 +20,20 @@ To bring it down and preserve your data
 docker-compose down
 ```
 
-To bring down all
+To bring down all (removing conatainers, data, networks)
 
 ```bash
 docker-compose down --volumes
 ```
-So, to explain it, we connect to the wordpress instance by [http://127.0.0.1:8000/](http://127.0.0.1:8000/), as we see on the compose file, we are connecting our 8000 port to the 80 port that's inside the container.
+So, to explain it, we connect to the WordPress instance by [http://127.0.0.1:8000/](http://127.0.0.1:8000/), as we see on the compose file, we are connecting our 8000 port to the 80 port that's inside the container.
 
 ```yml
      ports:
        - "8000:80"
 ```
-we are creating the environment variables that the wordpress image needs, and saying to docker that wordpress depend on the mysql image creation.
+We are creating the environment variables that the WordPress image needs, and saying to docker that WordPress depends on the MySQL image creation.
 
-On the mysql side, we are doing something similar (talking about the ports and env vars), but in this case we are preserving our data in a local volume
+On the MySQL side, we are doing something similar (talking about the ports and env vars), but in this case, we are preserving our data in a local volume
 
 ```yml
      environment:
@@ -42,8 +43,8 @@ On the mysql side, we are doing something similar (talking about the ports and e
        MYSQL_PASSWORD: wordpress
 ```
 
-![alt text](https://github.com/yosoyvilla/docker-k8s-wordpress/blob/develop/docker-compose.png?raw=true)
+![Docker Diagram](https://github.com/yosoyvilla/docker-k8s-wordpress/blob/develop/docker-compose.png?raw=true)
 
 ## Tips
 
- - You can translate from docker compose files to kubernetes files using [Kompose](https://kubernetes.io/docs/tasks/configure-pod-container/translate-compose-kubernetes/)
+ - You can translate from docker-compose files to Kubernetes files using [Kompose](https://kubernetes.io/docs/tasks/configure-pod-container/translate-compose-kubernetes/), please, keep in mind that you should modify the generated files in order to adapt it to what you really need.
